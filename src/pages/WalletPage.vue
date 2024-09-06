@@ -28,7 +28,7 @@
       store.changeView(4);
     }
   })
-  
+
   // check if wallet exists
   const mainnetWalletExists = await Wallet.namedExists(store.nameWallet);
   const testnetWalletExists = await TestNetWallet.namedExists(store.nameWallet);
@@ -46,12 +46,12 @@
   <header>
     <img :src="settingsStore.darkMode? 'images/cashonize-logo-dark.png' : 'images/cashonize-logo.png'" alt="Cashonize: a Bitcoin Cash Wallet" style="height: 85px;" >
     <nav v-if="store.displayView" style="display: flex; justify-content: center;" class="tabs">
-      <div @click="store.changeView(1)" v-bind:style="store.displayView == 1 ? {color: 'var(--color-primary'} : ''">BchWallet</div>
+      <div @click="store.changeView(1)" v-bind:style="store.displayView == 1 ? {color: 'var(--color-primary'} : ''">BchWallet 01</div>
       <div @click="store.changeView(2)" v-bind:style="store.displayView == 2 ? {color: 'var(--color-primary'} : ''">MyTokens</div>
       <div v-if="!isMobile" @click="store.changeView(3)" v-bind:style="store.displayView == 3 ? {color: 'var(--color-primary'} : ''">CreateTokens</div>
       <div @click="store.changeView(4)" v-bind:style="store.displayView == 4 ? {color: 'var(--color-primary'} : ''">{{isMobile?  "Connect" : "WalletConnect"}}</div>
       <div @click="store.changeView(5)">
-        <img style="vertical-align: text-bottom;" v-bind:src="store.displayView == 5 ? 'images/settingsGreen.svg' : 
+        <img style="vertical-align: text-bottom;" v-bind:src="store.displayView == 5 ? 'images/settingsGreen.svg' :
           settingsStore.darkMode? 'images/settingsLightGrey.svg' : 'images/settings.svg'">
       </div>
     </nav>
