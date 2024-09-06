@@ -21,6 +21,7 @@
   const selectedElectrumServer = ref(settingsStore.electrumServerMainnet);
   const selectedIpfsGateway = ref(settingsStore.ipfsGateway);
   const selectedChaingraph = ref(settingsStore.chaingraph);
+  const selectedCashAccountLookup = ref(settingsStore.cashAccountLookup);
 
   function changeUnit(){
     settingsStore.bchUnit = selectedUnit.value;
@@ -66,8 +67,12 @@
     if (confirm(text)){
       indexedDB.deleteDatabase("bitcoincash");
       indexedDB.deleteDatabase("bchtest");
-      location.reload(); 
+      location.reload();
     }
+  }
+  function changeCashAccountLookup() {
+    settingsStore.cashAccountLookup = selectedCashAccountLookup.value;
+    localStorage.setItem("cashAccountLookup", selectedCashAccountLookup.value.toString());
   }
 </script>
 
@@ -81,7 +86,7 @@
     </div>
 
     <div v-if="displayeAdvanced">
-      <div style="margin-top: 15px;">Enable token-burn  
+      <div style="margin-top: 15px;">Enable token-burn
         <Toggle v-model="selectedTokenBurn" @change="changeTokenBurn()" style="vertical-align: middle;toggle-height: 5.25rem; display: inline-block;"/>
       </div>
 
@@ -124,6 +129,15 @@
         </select>
       </div>
 
+      <div style="margin-top: 15px;">
+        Enable Cash Account address lookups
+        <Toggle
+          v-model="selectedCashAccountLookup"
+          @change="changeCashAccountLookup()"
+          style="vertical-align: middle; toggle-height: 5.25rem; display: inline-block;"
+        />
+      </div>
+
       <div style="margin-top:15px">Remove wallet data from {{isBrowser? "browser": "application"}}</div>
       <input @click="confirmDeleteWallet()" type="button" id="burnNFT" value="Delete wallet" class="button error" style="display: block;">
     </div>
@@ -155,7 +169,7 @@
       </div>
 
       <div style="margin-top:15px">Make backup of seed phrase (mnemonic)</div>
-      <input @click="toggleShowSeedphrase()" class="button primary" type="button" style="padding: 1rem 1.5rem; display: block;" 
+      <input @click="toggleShowSeedphrase()" class="button primary" type="button" style="padding: 1rem 1.5rem; display: block;"
         :value="displayeSeedphrase? 'Hide seed phrase' : 'Show seed phrase'"
       >
       <div v-if="displayeSeedphrase" @click="copyToClipboard(store.wallet?.mnemonic)" style="cursor: pointer;">

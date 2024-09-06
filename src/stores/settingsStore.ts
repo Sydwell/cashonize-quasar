@@ -17,6 +17,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const ipfsGateway = ref(dafaultIpfsGateway);
   const darkMode  = ref(false);
   const tokenBurn = ref(false);
+  const cashAccountLookup = ref(false);
 
   // read local storage for stored settings
   const readUnit = localStorage.getItem("unit");
@@ -32,7 +33,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
 
   const readChaingraph = localStorage.getItem("chaingraph") ?? "";
   if(readChaingraph) chaingraph.value = readChaingraph
-  
+
   const readIpfsGateway = localStorage.getItem("ipfsGateway") ?? "";
   if(readIpfsGateway) ipfsGateway.value = readIpfsGateway
 
@@ -41,5 +42,8 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   if(readExplorerMainnet) explorerMainnet.value = readExplorerMainnet
   if(readExplorerChipnet) explorerChipnet.value = readExplorerChipnet
 
-  return { bchUnit, explorerMainnet, explorerChipnet, electrumServerMainnet, chaingraph, ipfsGateway, darkMode, tokenBurn }
+  const readCashAccountLookup = localStorage.getItem("cashAccountLookup");
+  if(readCashAccountLookup === "true") cashAccountLookup.value = true;
+
+  return { bchUnit, explorerMainnet, explorerChipnet, electrumServerMainnet, chaingraph, ipfsGateway, darkMode, tokenBurn, cashAccountLookup }
 })
